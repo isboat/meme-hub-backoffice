@@ -12,8 +12,6 @@ namespace MemeTokenHub.Backoffce.Mongo.Interfaces
     {
         public Task<List<T>> GetAsync();
 
-        public Task<IEnumerable<T>> GetByFilterAsync(Expression<Func<T, bool>> filter);
-
         public Task<IEnumerable<T>> GetByFilter(Func<T, bool> filter);
 
         public Task<T?> GetAsync(string id);

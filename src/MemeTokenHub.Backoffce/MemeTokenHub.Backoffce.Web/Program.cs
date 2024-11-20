@@ -63,40 +63,12 @@ namespace Partners.Management.Web
 
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            builder.Services.AddSingleton<ITenantDBRepository<TenantModel>, TenantAdminRepository>();
-            builder.Services.AddSingleton<IUserRepository, UserRepository>();
-            builder.Services.AddSingleton<IRepository<RegisterModel>, RegistrationRepository>();
-            builder.Services.AddSingleton<IRepository<PartnerModel>, PartnerRepository>();
+            builder.Services.AddSingleton<IRepository<MemePageModel>, MemePageRepository>();
+            builder.Services.AddSingleton<IRepository<UserModel>, UserRepository>();
 
-            builder.Services.AddSingleton<ITenantService, TenantService>();
+            builder.Services.AddSingleton<IMemePageService, MemePageService>();
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
-            builder.Services.AddSingleton<IRegistrationService, RegistrationService>();
-
-
-            builder.Services.AddSingleton<ITenantRepository<AssetModel>>(provider =>
-            {
-                var settings = provider.GetService<IOptions<MongoSettings>>();
-                return new TenantModelRepository<AssetModel>(settings!, "AssetItems");
-            });
-
-            builder.Services.AddSingleton<ITenantRepository<MenuModel>>(provider =>
-            {
-                var settings = provider.GetService<IOptions<MongoSettings>>();
-                return new TenantModelRepository<MenuModel>(settings!, "Menus");
-            });
-
-            builder.Services.AddSingleton<ITenantRepository<TextAssetItemModel>>(provider =>
-            {
-                var settings = provider.GetService<IOptions<MongoSettings>>();
-                return new TenantModelRepository<TextAssetItemModel>(settings!, "TextAssetItems");
-            });
-
-            builder.Services.AddSingleton<ITenantRepository<SignalrConnectionModel>>(provider =>
-            {
-                var settings = provider.GetService<IOptions<MongoSettings>>();
-                return new TenantModelRepository<SignalrConnectionModel>(settings!, "SignalrConnections");
-            });
 
             builder.Services.AddScoped<ISignalrService>(provider =>
             {
@@ -104,14 +76,7 @@ namespace Partners.Management.Web
                 return new SignalrService(serviceBusConnectionString!, ServiceTransportType.Transient);
             });
 
-            builder.Services.AddSingleton<IRepository<DeviceAuthModel>, DeviceRepository>();
-            builder.Services.AddSingleton<IService<DeviceAuthModel>, BaseService<DeviceAuthModel>>();
-            builder.Services.AddSingleton<IService<PartnerModel>, BaseService<PartnerModel>>();
             builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
-            builder.Services.AddSingleton<ITenantModelService<AssetModel>, TenantModelService<AssetModel>>();
-            builder.Services.AddSingleton<ITenantModelService<TextAssetItemModel>, TenantModelService<TextAssetItemModel>>();
-            builder.Services.AddSingleton<ITenantModelService<MenuModel>, TenantModelService<MenuModel>>();
-            builder.Services.AddSingleton<ITenantModelService<SignalrConnectionModel>, TenantModelService<SignalrConnectionModel>>();
         }
 
         private static void RegisterAuth(WebApplicationBuilder builder, ConfigurationManager configuration)
@@ -126,7 +91,7 @@ namespace Partners.Management.Web
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Home/Login";
-                    options.Cookie.Name = "onScreenSync.Tenancy.AspNetCore.Cookies";
+                    options.Cookie.Name = "MemeToken.Hub.AspNetCore.Cookies";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                     options.SlidingExpiration = true;
 

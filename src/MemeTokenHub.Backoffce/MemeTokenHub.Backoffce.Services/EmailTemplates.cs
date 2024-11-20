@@ -9,7 +9,7 @@ namespace MemeTokenHub.Backoffce.Services
 {
     public static class EmailTemplates
     {
-        public static string GetTenantCreatedEmailBody(TenantModel model)
+        public static string GetTenantCreatedEmailBody(MemePageModel model)
         {
             var builder = new StringBuilder();
             builder.Append($"<p>Dear {model.Name},</p>");
@@ -24,7 +24,7 @@ namespace MemeTokenHub.Backoffce.Services
             return builder.ToString();
         }
 
-        public static string GetTenantGdprEmailBody(TenantModel model)
+        public static string GetTenantGdprEmailBody(MemePageModel model)
         {
             var builder = new StringBuilder();
             builder.Append($"<p>Dear {model.Name},</p>");

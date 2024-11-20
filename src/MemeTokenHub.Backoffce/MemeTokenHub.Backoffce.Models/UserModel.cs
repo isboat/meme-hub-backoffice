@@ -2,11 +2,9 @@
 
 namespace MemeTokenHub.Backoffce.Models
 {
-    public class UserModel
+    public class UserModel: IModelItem
     {
         public string? Id { get; set; }
-
-        public string? TenantId { get; set; }
 
         public string? Name { get; set; }
 

@@ -8,7 +8,6 @@ using Partners.Management.Web.Models;
 using Microsoft.Extensions.Options;
 using MemeTokenHub.Backoffce.Models;
 using MemeTokenHub.Backoffce.Services.Interfaces;
-using MemeTokenHub.Backoffce.Services;
 
 namespace Partners.Management.Web.Controllers
 {
@@ -16,19 +15,19 @@ namespace Partners.Management.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AuthSettings _authSettings;
-        private readonly IService<PartnerModel> _partnerService;
+        private readonly IUserService _userService;
         private readonly IEncryptionService _encryptionService;
 
         public HomeController(
-            ILogger<HomeController> logger, 
-            IOptions<AuthSettings> settings, 
-            IService<PartnerModel> partnerService, 
-            IEncryptionService encryptionService)
+            ILogger<HomeController> logger,
+            IOptions<AuthSettings> settings,
+            IEncryptionService encryptionService,
+            IUserService userService)
         {
             _logger = logger;
             _authSettings = settings.Value;
-            _partnerService = partnerService;
             _encryptionService = encryptionService;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -47,19 +46,18 @@ namespace Partners.Management.Web.Controllers
             {
                 if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return View();
 
-                var partner = (await _partnerService.GetByFilter((x) => FilterByEmailAsync(x, username))).FirstOrDefault();
-                if (partner == null)
+                var user = (await _userService.LoginAsync(username, password));
+                if (user == null)
                 {
+                    CreateNewTestUser(username, password);
                     return View();
                 }
 
-                var passwdVerified = _encryptionService.Verify(password, partner.Password);
                 var claims = new List<Claim>
                 {
-                    new Claim("partnerid", partner.Id),
-                    new Claim(ClaimTypes.Name, partner.Name),
-                    new Claim(ClaimTypes.Email, partner.Email),
-                    new Claim(ClaimTypes.PostalCode, partner.Postcode)
+                    new Claim("partnerid", user.Id),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Email, user.Email),
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, "Login");
@@ -73,6 +71,19 @@ namespace Partners.Management.Web.Controllers
             }
         }
 
+        private void CreateNewTestUser(string username, string password)
+        {
+            var user = new UserModel
+            {
+                CreatedOn = DateTime.Now,
+                Email = username,
+                Password = password,
+                Name = "Tom Smith",
+                Role = UserRoles.Admin,
+            };
+            _userService.CreateAsync(user);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
@@ -84,11 +95,6 @@ namespace Partners.Management.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        private static bool FilterByEmailAsync(PartnerModel model, string username)
-        {
-            return model.Email?.ToLowerInvariant() == username.ToLowerInvariant();
         }
 
     }
