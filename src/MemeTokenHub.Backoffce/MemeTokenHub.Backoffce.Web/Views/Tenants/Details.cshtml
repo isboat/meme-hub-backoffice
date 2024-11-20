@@ -1,0 +1,159 @@
+﻿@model Partners.Management.Web.Models.TenantViewModel
+
+
+
+
+
+@{
+    Layout = "_LayoutProfile";
+    ViewData["UserCount"] = Model.UserCount;
+    ViewData["AssetCount"] = Model.AssetCount;
+    ViewData["MenuCount"] = Model.Menus.Count();
+    ViewData["TextAdsCount"] = Model.TextAssets.Count();
+}
+
+<div class="row">
+
+    <partial name="TenantAssetSummary" model="Model.Tenant" view-data="ViewData" />
+
+    <div class="col-xl-8 order-xl-1">
+        <div class="card">
+            <form asp-controller="Home" asp-action="Profile" method="POST">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <h3 class="mb-0">Edit client details </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="heading-small text-muted mb-4">
+                        Client information
+                    </h6>
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-email">Name</label>
+                                    <input asp-for="Tenant.Name" type="text" id="input-username" class="form-control" placeholder="name here" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 hide">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-username">Id</label>
+                                    <input asp-for="Tenant.Id" type="text" id="input-username" class="form-control" placeholder="Id" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4"/>
+                    <!-- Address -->
+                    <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                    <div class="pl-lg-4">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-address">Email Address</label>
+                                    <input asp-for="Tenant.Email" type="email" id="input-email" class="form-control" readonly="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-address">Address</label>
+                                    <input asp-for="Tenant.Address" type="text" id="input-address" class="form-control" readonly="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-address">Telephone</label>
+                                    <input asp-for="Tenant.Telephone" type="text" id="input-telephone" class="form-control" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-city">City</label>
+                                    <input asp-for="Tenant.City" type="text" id="input-city" class="form-control" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Country</label>
+                                    <input asp-for="Tenant.Country" type="text" id="input-country" class="form-control" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Post code</label>
+                                    <input asp-for="Tenant.Postcode" type="text" id="input-postcode" class="form-control" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Users Limit</label>
+                                    <input asp-for="Tenant.UsersLimit" type="text" id="input-users-limit" class="form-control" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Tv Apps Limit</label>
+                                    <input asp-for="Tenant.TvAppsLimit" type="text" id="input-TvAppsLimit" class="form-control" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4"/>
+                    <!-- Description -->
+                    <h6 class="heading-small text-muted mb-4">Information about the company</h6>
+                    <div class="pl-lg-4">
+                        <div class="form-group">
+                            <textarea asp-for="Tenant.Note" rows="4" class="form-control" readonly=""></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-12 text-center">
+                            <a class="btn btn-md btn-primary" href="@Url.Action("Edit", "Tenants", new { id=Model.Tenant.Id })">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

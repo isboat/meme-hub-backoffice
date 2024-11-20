@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <partial name="_PageHeadElement"/>
+    
+    @RenderSection("Styles", required: false)
+    @RenderSection("HeadScripts", required: false)
+</head>
+<body>
+    <partial name="_GoogleTagManagerBodyElement" />
+
+    <partial name="_Sidenav"/>
+    <div class="main-content">
+        <partial name="Topnav/_Topnav"/>
+                
+        <!-- Page content -->
+        <div class="page-content">
+            <div class="page-content-box">
+                <!-- Page content -->
+                @RenderBody()
+            </div>
+            <partial name="_Footer" />
+        </div>
+    </div>
+    
+    <partial name="_ThemeScripts" />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
