@@ -11,6 +11,7 @@ using Partners.Management.Web.Models;
 namespace Partners.Management.Web.Controllers
 {
     [Authorize]
+    [Route("memepages")]
     public class MemePagesController : CustomBaseController
     {
         private readonly IMemePageService _memePageService;
@@ -24,7 +25,7 @@ namespace Partners.Management.Web.Controllers
             _emailSender = emailSender;
         }
 
-        // GET: TenantController
+        [HttpGet("")]
         public async Task<ActionResult> Index()
         {
             var partnerId = GetRequestPartnerId();
@@ -33,10 +34,14 @@ namespace Partners.Management.Web.Controllers
             return View(list);
         }
 
-        [HttpGet("/Details/{id}")]
+        [HttpGet("{id}/details")]
         public async Task<ActionResult> Details(string id)
         {
             var tenant = await _memePageService.GetAsync(id);
+            if (tenant == null) 
+            {
+                RedirectToAction(nameof(Index));
+            }
 
             return View(tenant);
         }
@@ -102,7 +107,7 @@ namespace Partners.Management.Web.Controllers
             }
         }
 
-        [HttpGet("/Tenants/Delete/{id}")]
+        [HttpGet("{id}/delete")]
         public async Task<ActionResult> Delete(string id)
         {
             try

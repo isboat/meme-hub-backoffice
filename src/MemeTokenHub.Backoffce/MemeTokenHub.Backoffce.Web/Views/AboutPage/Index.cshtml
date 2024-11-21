@@ -1,0 +1,63 @@
+﻿@model MemeTokenHub.Backoffce.Models.MemePageModel
+
+<h4>@Model.Name - About Page Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="About.Title" class="control-label"></label>
+                <input name="Title" asp-for="About.Title" class="form-control" />
+                <span asp-validation-for="About.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="About.SubTitle" class="control-label"></label>
+                <input name="SubTitle" asp-for="About.SubTitle" class="form-control" />
+                <span asp-validation-for="About.SubTitle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="About.Description" class="control-label"></label>
+                <input name="Description" asp-for="About.Description" class="form-control" />
+                <span asp-validation-for="About.Description" class="text-danger"></span>
+            </div>
+            
+            <div id="editorRows">
+                @foreach (var item in Model.About.Metadata)
+                {
+                    <partial name="EditMetadata.cshtml" model="item" />
+                }
+            </div>
+            <a id="addItem" href="/memepages/@Model.Id/about/blankrow" class="btn btn-primary">Add Item</a>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" defer>
+
+    $('#addItem').click(function (evt) {
+        evt.preventDefault();
+
+        $.ajax({
+            url: this.href,
+            cache: false,
+            success: function (html) {
+                $('#editorRows').append(html);
+            }
+        });
+    });
+
+    $('a.deleteRow').live('click', function () {
+        $(this).parents('div.editorRow:first').remove();
+        return false;
+    });
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

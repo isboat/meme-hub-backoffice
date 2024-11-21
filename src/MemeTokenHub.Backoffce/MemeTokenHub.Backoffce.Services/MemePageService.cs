@@ -25,7 +25,7 @@ namespace MemeTokenHub.Backoffce.Services
                     throw new ArgumentNullException(nameof(newModel.Id));
                 }
 
-                await _repository.CreateAsync(newModel);
+                await base.CreateAsync(newModel);
             }
         }
 

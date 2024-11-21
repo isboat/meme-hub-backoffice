@@ -1,0 +1,14 @@
+﻿@model KeyValuePair<string, string>
+
+
+<div class="editorRow">
+    <div>
+        @Html.LabelFor(x => x.Key)
+        @Html.EditorFor(x => x.Key)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Value)
+        @Html.EditorFor(x => x.Value)
+    </div>
+    <a href="#" class="deleteRow">delete</a>
+</div>
