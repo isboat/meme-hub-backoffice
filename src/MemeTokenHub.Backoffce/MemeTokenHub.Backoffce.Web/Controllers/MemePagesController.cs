@@ -77,15 +77,17 @@ namespace Partners.Management.Web.Controllers
             }
         }
 
-        [HttpGet("edit")]
+        [HttpGet("{id}/edit")]
         public async Task<ActionResult> Edit(string id)
         {
+            if(string.IsNullOrEmpty(id)) RedirectToAction(nameof(Index));
+
             var model = await _memePageService.GetAsync(id);
             return View(model);
         }
 
         // POST: TenantController/Edit/5
-        [HttpPost("edit")]
+        [HttpPost("{id}/edit")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(string id, [FromForm] MemePageModel model)
         {

@@ -1,8 +1,15 @@
 ﻿@model Meme.Domain.Models.MemePageModel
 
 <div class="row">
+    <div class="col-6">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        <a asp-action="Index">Back to List</a>
+        <hr />
+    </div>
+</div>
+<div class="row">
     <div class="col-12">
-        <h4>Meme Page Model</h4>
+        <h4>@Model.Name - meme page details</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
@@ -42,17 +49,32 @@
                 @Html.DisplayFor(model => model.Status)
             </dd>
         </dl>
-
+        <hr />
     </div>
 </div>
 <div></div>
 <div class="row">
-    <hr />
-    <div class="col-12">
-        <a href="/memepages/@Model.Id/about" class="btn btn-primary">Update About page section</a>
+    <div class="col-2">
+        <a href="/memepages/@Model.Id/homesection">Update Home section</a>
+    </div>
+    <div class="col-2">
+        <a href="/memepages/@Model.Id/aboutsection">Update About section</a>
+    </div>
+    <div class="col-2">
+        <a href="/memepages/@Model.Id/aboutsection">Update About section</a>
     </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+        <a href="/memepages/@Model.Id/aboutsection" class="btn btn-warning">Make Page Live</a>
+    </div>
 </div>

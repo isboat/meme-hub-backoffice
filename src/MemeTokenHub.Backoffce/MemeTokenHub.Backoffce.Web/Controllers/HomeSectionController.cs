@@ -7,13 +7,13 @@ using Meme.Domain.Models;
 namespace Partners.Management.Web.Controllers
 {
     [Authorize]
-    [Route("memepages/{id}/about")]
-    public class AboutPageController : CustomBaseController
+    [Route("memepages/{id}/homesection", Name = "HomeSection")]
+    public class HomeSectionController : CustomBaseController
     {
         private readonly IMemePageService _memePageService;
         private readonly IEmailSender _emailSender;
 
-        public AboutPageController(
+        public HomeSectionController(
             IMemePageService tenantService,
             IEmailSender emailSender)
         {
@@ -34,14 +34,14 @@ namespace Partners.Management.Web.Controllers
             var model = await _memePageService.GetAsync(id);
             if (model == null) RedirectToList();
 
-            model.About ??= new AboutSectionModel();
-            model.About.Metadata ??= [];
+            model.HomeSection ??= new HomeSectionModel();
+            model.HomeSection.Metadata ??= [];
             return View(model);
         }
 
         [HttpPost("")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Index(string id, [FromForm] AboutSectionModel model)
+        public async Task<ActionResult> Index(string id, [FromForm] HomeSectionModel model)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Partners.Management.Web.Controllers
                     var page = await _memePageService.GetAsync(id);
                     if (page == null) RedirectToAction(nameof(Index));
 
-                    page.About = model;
+                    page.HomeSection = model;
                     await _memePageService.UpdateAsync(id, page);
                 }
                 return Redirect("/memepages");
@@ -59,12 +59,6 @@ namespace Partners.Management.Web.Controllers
             {
                 return View();
             }
-        }
-
-        [HttpGet("blankrow")]
-        public ActionResult BlankRow()
-        {
-            return PartialView("EditMetadata", new KeyValuePair<string, string>("testKey", "testvalue"));
         }
     }
 }
