@@ -27,29 +27,30 @@ namespace Partners.Management.Web.Controllers
             var partnerId = GetRequestPartnerId();
             var list = await _memePageService.GetByOwnerIdAsync(partnerId);
 
-            return View(list);
+            return View(list.Where(x => x.Status != PageStatus.Deleted));
         }
 
         [HttpGet("{id}/details")]
         public async Task<ActionResult> Details(string id)
         {
-            var tenant = await _memePageService.GetAsync(id);
-            if (tenant == null) 
+            if (string.IsNullOrEmpty(id)) RedirectToAction(nameof(Index));
+
+            var page = await _memePageService.GetAsync(id);
+            if (page == null) 
             {
                 RedirectToAction(nameof(Index));
             }
 
-            return View(tenant);
+            return View(page);
         }
 
-        // GET: TenantController/Create
+        [HttpGet("create")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TenantController/Create
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([FromForm] MemePageModel model)
         {
@@ -57,7 +58,6 @@ namespace Partners.Management.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //model.Id = Guid.NewGuid().ToString("N");
                     model.Created = DateTime.Now;
                     model.OwnerIds ??= [];
 
@@ -77,7 +77,7 @@ namespace Partners.Management.Web.Controllers
             }
         }
 
-        // GET: TenantController/Edit/5
+        [HttpGet("edit")]
         public async Task<ActionResult> Edit(string id)
         {
             var model = await _memePageService.GetAsync(id);
@@ -85,7 +85,7 @@ namespace Partners.Management.Web.Controllers
         }
 
         // POST: TenantController/Edit/5
-        [HttpPost]
+        [HttpPost("edit")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(string id, [FromForm] MemePageModel model)
         {
@@ -93,7 +93,15 @@ namespace Partners.Management.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _memePageService.UpdateAsync(id, model);
+                    var page = await _memePageService.GetAsync(id);
+                    if (page != null)
+                    {
+
+                        page.CoinAddress = model.CoinAddress;
+                        page.BuyUrl = model.BuyUrl;
+                        page.Name = model.Name;
+                        await _memePageService.UpdateAsync(page.Id!, page);
+                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -108,7 +116,16 @@ namespace Partners.Management.Web.Controllers
         {
             try
             {
-                //await _tenantService.RemoveAsync(id);
+                if (string.IsNullOrEmpty(id)) RedirectToAction(nameof(Index));
+
+                var page = await _memePageService.GetAsync(id);
+                if (page != null)
+                {
+
+                    page.Status = PageStatus.Deleted;
+                    await _memePageService.UpdateAsync(page.Id!, page);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch
