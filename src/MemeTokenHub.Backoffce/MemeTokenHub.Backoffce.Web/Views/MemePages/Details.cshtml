@@ -75,6 +75,30 @@
     <div class="col-2">
     </div>
     <div class="col-2">
-        <a href="/memepages/@Model.Id/aboutsection" class="btn btn-warning">Make Page Live</a>
+        <a id="liveBtn" href="/memepages/@Model.Id/status" class="btn btn-success">Make Page Live</a>
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+        <a id="deletePageBtn" href="/memepages/@Model.Id/delete" class="btn btn-danger">Delete Page Permanently</a>
     </div>
 </div>
+
+<script type="text/javascript" defer>
+
+    $('#liveBtn').click(function (evt) {
+        evt.preventDefault();
+
+        $.ajax({
+            url: `${this.href}/active`,
+            cache: false,
+            type: "PATCH",
+            success: function () {
+                alert("Successful - Page is now live")
+            }
+        });
+    });
+
+</script>

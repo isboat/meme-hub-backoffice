@@ -113,6 +113,29 @@ namespace Partners.Management.Web.Controllers
             }
         }
 
+        [HttpPatch("{id}/status/{status}")]
+        public async Task<ActionResult> StatusUpDdate(string id, PageStatus status)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id)) RedirectToAction(nameof(Index));
+
+                var page = await _memePageService.GetAsync(id);
+                if (page != null)
+                {
+
+                    page.Status = status;
+                    await _memePageService.UpdateAsync(page.Id!, page);
+                }
+
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("{id}/delete")]
         public async Task<ActionResult> Delete(string id)
         {
