@@ -1,6 +1,4 @@
-﻿using MemeTokenHub.Backoffce.Models;
-
-namespace MemeTokenHub.Backoffce.Services.Interfaces
+﻿namespace MemeTokenHub.Backoffce.Services.Interfaces
 {
     public interface IService<T>
     {

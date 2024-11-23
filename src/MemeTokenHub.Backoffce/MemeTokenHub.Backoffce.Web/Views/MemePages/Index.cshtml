@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MemeTokenHub.Backoffce.Models.MemePageModel>
+﻿@model IEnumerable<Meme.Domain.Models.MemePageModel>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,9 +14,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PathUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AboutMe)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Created)
@@ -38,9 +35,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PathUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AboutMe)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)

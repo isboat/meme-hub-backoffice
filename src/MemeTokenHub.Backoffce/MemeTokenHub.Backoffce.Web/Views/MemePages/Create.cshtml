@@ -1,4 +1,4 @@
-﻿@model MemeTokenHub.Backoffce.Models.MemePageModel
+﻿@model Meme.Domain.Models.MemePageModel
 
 <h4>MemePageModel</h4>
 <hr />
@@ -15,11 +15,6 @@
                 <label asp-for="PathUrl" class="control-label"></label>
                 <input asp-for="PathUrl" class="form-control" />
                 <span asp-validation-for="PathUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AboutMe" class="control-label"></label>
-                <input asp-for="AboutMe" class="form-control" />
-                <span asp-validation-for="AboutMe" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Meme.Domain.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using MemeTokenHub.Backoffce.Models;
 using MongoDB.Driver.Linq;
 
 namespace MemeTokenHub.Backoffce.Mongo

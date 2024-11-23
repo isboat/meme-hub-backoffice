@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Text;
-using MemeTokenHub.Backoffce.Models;
-using MemeTokenHub.Backoffce.Services;
 using MemeTokenHub.Backoffce.Services.Interfaces;
-using Partners.Management.Web.Models;
-using System.Collections.Generic;
+using Meme.Domain.Models;
 
 namespace Partners.Management.Web.Controllers
 {
@@ -39,14 +34,14 @@ namespace Partners.Management.Web.Controllers
             var model = await _memePageService.GetAsync(id);
             if (model == null) RedirectToList();
 
-            model.About ??= new MemePageAboutModel();
+            model.About ??= new AboutSectionModel();
             model.About.Metadata ??= [];
             return View(model);
         }
 
         [HttpPost("")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Index(string id, [FromForm] MemePageAboutModel model)
+        public async Task<ActionResult> Index(string id, [FromForm] AboutSectionModel model)
         {
             try
             {

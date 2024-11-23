@@ -1,5 +1,4 @@
-﻿using MemeTokenHub.Backoffce.Models;
-using MemeTokenHub.Backoffce.Mongo.Interfaces;
+﻿using MemeTokenHub.Backoffce.Mongo.Interfaces;
 
 namespace MemeTokenHub.Backoffce.Services
 {

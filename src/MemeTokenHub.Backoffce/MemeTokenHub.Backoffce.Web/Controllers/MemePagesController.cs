@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Text;
-using MemeTokenHub.Backoffce.Models;
-using MemeTokenHub.Backoffce.Services;
 using MemeTokenHub.Backoffce.Services.Interfaces;
-using Partners.Management.Web.Models;
+using Meme.Domain.Models;
 
 namespace Partners.Management.Web.Controllers
 {
@@ -55,7 +51,7 @@ namespace Partners.Management.Web.Controllers
         // POST: TenantController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([FromForm]MemePageModel model)
+        public async Task<ActionResult> Create([FromForm] MemePageModel model)
         {
             try
             {

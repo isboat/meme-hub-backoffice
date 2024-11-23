@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Meme.Domain.Models;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MemeTokenHub.Backoffce.Models
 {

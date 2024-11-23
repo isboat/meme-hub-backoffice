@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Azure.SignalR.Management;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using MemeTokenHub.Backoffce.Models;
-using MemeTokenHub.Backoffce.Models.Signalr;
 using MemeTokenHub.Backoffce.Mongo;
 using MemeTokenHub.Backoffce.Mongo.Interfaces;
 using MemeTokenHub.Backoffce.Services;
 using MemeTokenHub.Backoffce.Services.Interfaces;
 using Partners.Management.Web.Services;
+using Meme.Domain.Models;
 
 namespace Partners.Management.Web
 {

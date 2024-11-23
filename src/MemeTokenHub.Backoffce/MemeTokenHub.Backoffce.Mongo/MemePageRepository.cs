@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
-using System.Linq.Expressions;
-using MemeTokenHub.Backoffce.Models;
 using MemeTokenHub.Backoffce.Mongo.Interfaces;
+using Meme.Domain.Models;
 
 namespace MemeTokenHub.Backoffce.Mongo
 {

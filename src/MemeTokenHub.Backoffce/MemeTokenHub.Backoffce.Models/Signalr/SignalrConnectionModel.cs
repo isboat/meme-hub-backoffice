@@ -1,4 +1,6 @@
-﻿namespace MemeTokenHub.Backoffce.Models.Signalr
+﻿using Meme.Domain.Models;
+
+namespace MemeTokenHub.Backoffce.Models.Signalr
 {
     public class SignalrConnectionModel: IModelItem
     {
