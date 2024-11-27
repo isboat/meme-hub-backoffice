@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meme.Domain.Models" Version="1.0.2" />
+    <PackageReference Include="Meme.Domain.Models" Version="1.0.3" />
     <PackageReference Include="MongoDB.Bson" Version="2.27.0" />
   </ItemGroup>
 </Project>

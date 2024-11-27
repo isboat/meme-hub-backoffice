@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Azure.SignalR.Management;
 using MemeTokenHub.Backoffce.Models;
 using MemeTokenHub.Backoffce.Mongo;
@@ -25,6 +24,9 @@ namespace Partners.Management.Web
 
             builder.Services.Configure<AuthSettings>(
                 builder.Configuration.GetSection("AuthSettings"));
+
+            builder.Services.Configure<S3Settings>(
+                builder.Configuration.GetSection("S3Settings"));
 
 
             ConfigureServices(builder);
@@ -66,6 +68,7 @@ namespace Partners.Management.Web
             builder.Services.AddSingleton<IMemePageService, MemePageService>();
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
+            builder.Services.AddSingleton<IUploadService, S3UploadService>();
 
             builder.Services.AddScoped<ISignalrService>(provider =>
             {

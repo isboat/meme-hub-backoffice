@@ -50,7 +50,11 @@ namespace Partners.Management.Web.Controllers
                     var page = await _memePageService.GetAsync(id);
                     if (page == null) RedirectToAction(nameof(Index));
 
-                    page.HomeSection = model;
+                    page.HomeSection ??= new HomeSectionModel();
+                    page.HomeSection.Tagline = model.Tagline;
+                    page.HomeSection.Description = model.Description;
+                    page.HomeSection.Title = model.Title;
+
                     await _memePageService.UpdateAsync(id, page);
                 }
                 return Redirect("/memepages");

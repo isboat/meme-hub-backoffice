@@ -13,9 +13,9 @@
                 <span asp-validation-for="HomeSection.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HomeSection.ImgUrl" class="control-label"></label>
-                <input name="ImgUrl" asp-for="HomeSection.ImgUrl" class="form-control" />
-                <span asp-validation-for="HomeSection.ImgUrl" class="text-danger"></span>
+                <label asp-for="HomeSection.Tagline" class="control-label"></label>
+                <input name="Tagline" asp-for="HomeSection.Tagline" class="form-control" />
+                <span asp-validation-for="HomeSection.Tagline" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -27,6 +27,16 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4">
+        <ul class="list-group">
+            <li class="list-group-item active">Image Uploads</li>
+            <li class="list-group-item">
+                <div><a href="/memepages/@Model.Id/imageupload/single?imgType=banner&section=home">Upload home banner</a></div>
+                <div><a href="/memepages/@Model.Id/imageupload/single?imgType=background&section=home">Upload home background (optional)</a></div>
+            </li>
+        </ul>
     </div>
 </div>
 

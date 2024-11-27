@@ -99,7 +99,7 @@ namespace Partners.Management.Web.Controllers
                     if (page != null)
                     {
 
-                        page.CoinAddress = model.CoinAddress;
+                        page.ContractAddress = model.ContractAddress;
                         page.BuyUrl = model.BuyUrl;
                         page.Name = model.Name;
                         await _memePageService.UpdateAsync(page.Id!, page);

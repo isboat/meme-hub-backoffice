@@ -5,9 +5,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.408" />
     <PackageReference Include="BCrypt.Net" Version="0.1.0" />
     <PackageReference Include="MailKit" Version="4.7.0" />
-    <PackageReference Include="Meme.Domain.Models" Version="1.0.2" />
+    <PackageReference Include="Meme.Domain.Models" Version="1.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MemeTokenHub.Backoffce.Models\MemeTokenHub.Backoffce.Models.csproj" />
